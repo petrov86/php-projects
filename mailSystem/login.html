@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="style.css" rel="stylesheet" media="screen">
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<title>Login!</title>
+</head>
+<body>
+				
+ 		 	<div class="center_box">
+				<h1>Login page!</h1></br>
+						<input name="username" type="text" placeholder="Username"  class='label' id='username' required/>
+						<br />
+						<input name="password" type="password" placeholder="Password" class='label' id='password' required />
+						<br />
+						<input type="submit" value="Login" class='btn btn-large' id='btn' />
+						<a href="register.html" class="btn btn-large"  id='btn' >Register</a>
+
+			</div>
+			
+
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(event) {
+
+				console.log("it works");
+				$("#btn").click(function(event){
+					var	username=$("#username").val(),
+						password=$('#password').val(),
+						str="";
+						if (username!==str && password!==str)
+							{
+								$.ajax({
+										type: "POST",
+										url: "login.php",
+					  					data : {
+					  							username : username,
+					  							password : password
+					 					 }
+								}).done(function(response){
+								
+									if ((response==="index.html"))
+											{
+													window.location.replace(response);
+											}
+									else
+											{
+													alert(response);
+											}
+								});	
+							}
+						else
+							{
+								alert("Type your Username and Password");
+							}
+						
+
+
+				})
+	
+	
+		})
+	</script>
+</body>
+</html>
+
