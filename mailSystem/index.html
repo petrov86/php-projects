@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="style.css" rel="stylesheet" media="screen">
+	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	<script src="bootstrap/js/bootstrap.js"></script>
+	<title>Mail System!</title>
+</head>
+<body>
+	<div>	
+		<a href='logout.php' class="btn">Exit!</a> 
+			<h5 class="userName">   
+			</h5>			
+	</div>		
+		<div id="container" class="row">
+			
+			<div class="span3 offset1">
+				<div class="input-append"></br>
+  					<input class="span2" id="newList" type="text">
+ 					<button class="btn" type="button" id="createNewList">New List</button>
+				</div>
+				<div class="input-append">
+  					<input class="span2" id="newEmail" type="text">
+ 					<button class="btn" type="button" id="addNewEmail">Add Email</button>
+				</div>
+				<div>
+				</br>
+				<h5>Select list of subscribers:</h5>
+					<select id="selectList" size="10">
+							
+					</select>
+					<button class="btn" type="button" id="deleteList">Delete List</button>
+				</div></br>
+				<div id="emails">
+				</div>
+			</div>	
+
+			<div class="span6 offset1">
+					<p>
+						Subscribers:
+						<input type="text" id="subscribers" required/><br/>
+						Subject:<br/>
+						<input type="text" id="subject" /></br>
+						<textarea id="message" ></textarea></br>
+						<button type="button" class="btn" id="sendMessage"/>Send Message</button>
+					</p>
+			</div>
+			<div class="span2 offset3" id="bottom"><img src="images/free-smiley.gif"></div>
+
+	</div>
+<script src="script.js"></script>
+
+</body>
+</html>
+
+
+
