@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+	<title>New Profile Page</title>
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="style.css" rel="stylesheet" media="screen">
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body >
+	<div class="row">
+		<div class="span5 offset2"></br>
+		<h2 class="form-signin-heading">Create a New Account </h2>
+		<form class="form-signin" action="register.php" method="POST">
+		
+		<label for="firstname">First Name:</label>
+		<input class="input-large" id="firstname" name="firstname" type="text" required="required" />
+		</br>
+		<label for="lastname">Last Name:</label>
+		<input class="input-large" id="lastname" name="lastname" type="text" required="required" />
+		</br>
+		<label for="username">Account Name:</label>
+		<input class="input-large" id="username" name="username" type="text" required="required" />
+		</br>
+		<label for="pass">Password:</label>
+		<input class="input-large" id="pass" name="pass" type="password" required="required"/>
+		</br>
+		<label for="pass2">Re-type password:</label>
+		<input class="input-large" id="pass2" name="pass2" type="password" required="required"/>
+		</br>	</br>
+		<input class="btn btn-large " type="submit" value="Register" name="submit" id='btn'  />
+		</br>
+		</form>
+		<a href="login.html"  ><input class="btn btn-small "  value="Already Have a Registration!" /></a>
+	</div>
+	</div>
