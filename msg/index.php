@@ -30,14 +30,9 @@
 		<div id="rightMenu">
 				<p><button class= "buttonBig"  onclick="location.href='postmessage.php'">Add New Message</button></p>
 				<p><button class= "buttonBig" id="showAllMsg">View All Messages</button></p>
+				<p><button class= "buttonBig" id="last_30_DaysMsg">Messages from last 30 days</button></p>
 				<p><button class= "buttonBig" id="showTodayMsg">View Messages From Today</button></p>
 				
-				<?php
-				if(isset($_SESSION["userId"])) 
-						{				
-							echo "<p><button class= 'buttonBig' id='editMsg'>Edit Messages</button></p>";
-						}		
-				?>
 				<div id="labels">					
 						<label for="date1">From Date:</label>
 				</div>
@@ -54,28 +49,30 @@
 		</div>
 		<div id="menu">
 			
-								<?php 	
-									if(isset($_SESSION["userId"])) 
-									{
+						<?php 	
+							if(isset($_SESSION["userId"])) 
+							{
 
-								?>		
+						?>		
 						
 				<button class='buttonSmall' onclick="location.href='logout.php'">Logout</button>	
 				
-								<?php 
-										echo "</br>";
-										echo "</br>";
-										ShowWhoIsOnline();
-										$startTime = strtotime($_SESSION["loginTime"]);
-										$duration = session_cache_expire() * 60; 
-										$timeNow = time() ; 
-										if ($startTime + $duration < $timeNow)
-										{	
-											header('Location: logout.php');
-										}
-									}
-								?>	
-			
+						<?php 
+								echo "</br>";
+								echo "<p><button class= 'buttonSmall' id='editMsg'>Edit</button></p>";
+								echo "</br>";
+								ShowWhoIsOnline();
+								$startTime = strtotime($_SESSION["loginTime"]);
+								$duration = session_cache_expire() * 60; 
+								$timeNow = time() ; 
+								
+								if ($startTime + $duration < $timeNow)
+								{	
+									header('Location: logout.php');
+								}
+								
+							}
+						?>	
 			
 		</div>
 		
