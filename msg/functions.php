@@ -1,7 +1,8 @@
 <?php
 	require_once "database.php";
 	session_start();
-
+		
+		/*
 		function ShowMsg()
 		{
 			$sql = "SELECT messages.msgID, messages.message, messages.message_time, users.username FROM messages 
@@ -15,7 +16,7 @@
 			}
 			echo $stringResult;
 		}
-		
+		*/
 		
 		function ShowWhoIsOnline()
 		{	
@@ -68,4 +69,9 @@
 		{		
 			header("Location: $direction");
 		}	
+		
+		function makeClickableLinks($s) {
+			return preg_replace('@(https?://([-\w\.]+)+(:\d+)?(/([\w/_\.-]*(\?\S+)?)?)?)@', '<a href="$1">$1</a>', $s);
+		}
+		
 ?>
