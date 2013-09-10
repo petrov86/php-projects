@@ -54,16 +54,27 @@ body {
 
 
 #messages {
-  /*border:2px solid blue;*/
-  width:700px;
-  margin:10px 0 10px 150px;
-  min-height:500px;
-  text-align: left;
-  /*word-wrap: normal; break-word;*/
-  white-space: pre-wrap; 	
-  position: left;
-  word-wrap: break-word;
-  display: block;
+	/*border:2px solid blue;*/
+	width:700px;
+	margin:10px 0 10px 150px;
+	min-height:500px;
+	text-align: left;
+	/*word-wrap: normal; break-word;*/
+	white-space: normal; 	
+	position: left;
+	/*
+	white-space: pre; /* CSS 2.0 
+	white-space: pre-wrap; 
+	white-space: pre-line; 
+	white-space: -pre-wrap; 
+	white-space: -o-pre-wrap; 
+	white-space: -moz-pre-wrap; 
+	white-space: -hp-pre-wrap; 
+	*/
+	word-wrap: break-word; /* IE 5+ */
+	word-break:break-all;
+    display: block;
+
 }
 
 #rightMenu {
