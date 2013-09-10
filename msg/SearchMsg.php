@@ -1,7 +1,6 @@
 <?php
-//session_start();
 require_once "database.php";
-
+require_once "functions.php";
 
 $DateTimeNow =  date( 'Y-m-d H:i:s');
 
@@ -14,7 +13,13 @@ function ShowSearchedMsg ($DateFrom, $DateTo)
 			$res = mysql_query($sql);
 			$stringResult ="";
 			while ($row = mysql_fetch_assoc($res)) {	
-					$stringResult = $stringResult."<div><p>From: <b>".$row["username"].", </b>Posted at: ". $row["message_time"]."</p><h4><pre>".$row["message"]."</pre></h4></div><hr/>";	
+					if(filter_var($row["message"], FILTER_VALIDATE_URL))
+					{	
+						$row["message"] = makeClickableLinks($row["message"]);
+					}
+					$stringResult = $stringResult."<div><p>From: <b>".$row["username"].", </b>Posted at: ". $row["message_time"]."</p><h4>".$row["message"]."</h4></div><hr/>";	
+					
+					
 			}
 
 			//$stringResult=iconv("UTF-8",$stringResult);
