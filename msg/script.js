@@ -1,17 +1,18 @@
 			
 			var DateFrom;
 			var DateTo;
+			var messageStr;
+			var timeOut = 300000;
+			var timeoutHandle = window.setTimeout(inactive, timeOut);
 			
 			$("document").ready(function() {
 					$("#last_30_DaysMsg").trigger('click');
-					
 					$.ajax({
 					type: "POST",
 					url: "IsLastMessageShown.php",
 					}).done(function(response){  
 								if (response === '0')
 								{
-									//$("#title").html("New msg!");
 									Blink();
 									updateLastMessageShown ();	
 								}
@@ -26,13 +27,11 @@
 				if(blink)
 				{
 					theTitle.text = "New msg!";
-					//or theTitle.innerHTML = "New msg!";
 					blink = false;
 				}
 				else
 				{
 					theTitle.text = "";
-					//or theTitle.innerHTML = "";
 					blink = true;
 				}
 			}, 1000);
@@ -61,11 +60,12 @@
 			
 			$("#showTodayMsg").click(function(event){
 						$("#messages").empty();
+						messageStr='';
 						DateFrom = $.datepicker.formatDate('yy-mm-dd', new Date());
 						//console.log(DateFrom);	
 						$.ajax({
 						type: "POST",
-						url: "SearchMsg.php",
+						url: "search.php",
 						data : {
 				  					DateFrom : DateFrom
 				  		}						
@@ -76,16 +76,18 @@
 						})
 			
 			$("#showAllMsg").click(function(event){
+						messageStr='';
 						$("#messages").empty();
 						DateFrom = '';
 						$.ajax({
-						url: "SearchMsg.php",
+						url: "search.php",
 						}).done(function(response){
 						$("#messages").html(response);
 						});	
 						})
 						
 			$("#last_30_DaysMsg").click(function(event){
+						messageStr='';
 						$("#messages").empty();
 						DateFrom = new Date();	
 						var curr_date = DateFrom.getDate();
@@ -95,7 +97,7 @@
 						//console.log(DateFrom);					
 						$.ajax({
 						type: "POST",
-						url: "SearchMsg.php",
+						url: "search.php",
 						data : {
 				  					DateFrom : DateFrom
 				  		}	
@@ -103,30 +105,30 @@
 						$("#messages").html(response);
 						});	
 						})
-
-
 			
-			$("#searchMsg").click(function(event){
+			$("#search").click(function(event){
 						$("#messages").empty();
+						messageStr= $("#messageStr").val();
 						DateFrom = $("#DateFrom").val();
 						DateTo = $("#DateTo").val();
-						//console.log(DateTo);
-						//console.log(DateFrom);
 						$.ajax({
 						type: "POST",
-						url: "SearchMsg.php",
+						url: "search.php",
 						data : {
 				  					DateFrom : DateFrom,
-				  					DateTo : DateTo
+				  					DateTo : DateTo,
+									messageStr : messageStr
 				  		}						
 						}).done(function(response){
 						$("#messages").html(response);
 						}).done(function(){
-									$("#DateFrom").val("");;	
-									$("#DateTo").val("");;									
+									$("#DateFrom").val("");
+									$("#DateTo").val("");	
+									$("#messageStr").val("");		
 									});	
 						})
 
+			
 			$("#editMsg").click(function(event){
 						$("#messages").empty();
 						$.ajax({
@@ -134,7 +136,8 @@
 						url: "EditMsg.php",
 						data : {
 								DateFrom : DateFrom,
-								DateTo : DateTo		
+								DateTo : DateTo,
+								messageStr : messageStr
 						}		
 								}).done(function(response){
 									$("#messages").html(response);
@@ -148,12 +151,15 @@
 							$( "#DateTo" ).datepicker({  dateFormat: 'yy-mm-dd', autoSize: true });
 						});
 			
-			
-			setTimeout(function(){
-				   window.location.reload(1);
-				   
-				}, 300000);
-				
-
-			
 	
+			// reset reload timer
+			$('body'). bind('mousemove, keydown, click, mousedown keydown', function()	{	
+																							clearTimeout(timeoutHandle);
+																							timeoutHandle = window.setTimeout(inactive, timeOut);
+																						})	
+
+			function inactive() {
+			    window.location.reload(true);
+			}
+			
+			
