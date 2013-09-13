@@ -28,11 +28,15 @@
 				<hr />
 		</div>
 		<div id="rightMenu">
+							
+								
+				
 				<p><button class= "buttonBig"  onclick="location.href='postmessage.php'">Add New Message</button></p>
 				<p><button class= "buttonBig" id="showAllMsg">View All Messages</button></p>
 				<p><button class= "buttonBig" id="last_30_DaysMsg">Messages from last 30 days</button></p>
 				<p><button class= "buttonBig" id="showTodayMsg">View Messages From Today</button></p>
 				
+
 				<div id="labels">					
 						<label for="date1">From Date:</label>
 				</div>
@@ -40,10 +44,14 @@
 				<div id="labels">
 						<label for="date2">To Date:</label>
 				</div>
-						<input name="date2" id="DateTo"/>					
-					<p>
-						<button class= "buttonSmall" id="searchMsg">Search</button>
-					</p>
+						<input name="date2" id="DateTo"/>
+				<div id="labels">		
+						<label>Search by Keyword:</label><br/>
+				</div>
+						<input name="messageStr" id="messageStr"/>				
+				<p>
+						<button class= "buttonSmall" id="search">Search</button>
+				</p>
 				
 
 		</div>
