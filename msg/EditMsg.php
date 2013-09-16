@@ -17,12 +17,17 @@ function DelMsgForm($DateFrom, $DateTo, $messageStr)
 			echo "<form method='post' action=''>";
 			while ($row = mysql_fetch_assoc($res)) 
 			{		
-					$info = "<a href=''><input type='checkbox' value=" . $row["msgID"] ."name=" . $row["msgID"] . "> From: <b>" . $row["username"] . ",</b>  Posted at: "  . $row["message_time"] . "</a>";
+					
+					 
 					if(filter_var($row["message"], FILTER_VALIDATE_URL))
 							{	
 								$row["message"] = makeClickableLinks($row["message"]);
 							}
-					$stringResult = $stringResult . "<div>" . $info . "<h4>" . $row["message"] . "</h4></div><hr />";
+					$info = "<input type='checkbox' value='" . $row["msgID"] ."' name='" . $row["msgID"] . "'>
+							 From: <b>" . $row["username"] . ",</b>  Posted at: "  . $row["message_time"] . 
+							 "<form method='get' action='updateMessage.php'><input type='submit' value='edit' name='" .$row["msgID"]. "'></form>";		
+									
+					$stringResult = $stringResult . "<div>" . $info . "<h4>" . $row["message"] . "</h4></div><hr/>";
 			}
 			$stringResult = html_entity_decode($stringResult); 
 			echo $stringResult;	
@@ -55,5 +60,4 @@ if (isset($_POST["DateTo"]))
   
 
 DelMsgForm ($DateFrom, $DateTo, $messageStr);
-
 
