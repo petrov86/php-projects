@@ -89,21 +89,7 @@
 		
 
 
-							<?php	
-									if(isset($_SESSION["userId"])) 
-									{		
-										if(isset($_POST['del'])) 
-										{
-											foreach ( $_POST as $key => $value )
-												{	
-													if ($key != "del")
-													{
-														deleteMsg($_POST[ $key ]);
-													}								
-												}	
-										}
-									}			
-							?>		
+							
 		</div>
 </div>
 	

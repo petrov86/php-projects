@@ -130,20 +130,70 @@
 
 			
 			$("#editMsg").click(function(event){
-						$("#messages").empty();
-						$.ajax({
-						type: "POST",
-						url: "EditMsg.php",
-						data : {
-								DateFrom : DateFrom,
-								DateTo : DateTo,
-								messageStr : messageStr
-						}		
-								}).done(function(response){
-									$("#messages").html(response);
-									});	
-						})
+												$("#messages").empty();
+												
+												$.ajax({
+														type: "POST",
+														url: "EditMsg.php",
+														dataType : "json",
+														data : 
+														{
+																DateFrom : DateFrom,
+																DateTo : DateTo,
+																messageStr : messageStr
+														}		
+														}).done(EditMessage);						
+												})						
+																							
+			var EditMessage = function(response){
+					var info;
+					var message;
+					var buttonEdit;
+					$.each(response, function(index, item)
+					{ 	
+						info = "<input type='checkbox' value='" + item.msgID +"' name='type'>From: <b>" + item.username + ",</b>  Posted at: "  + item.message_time + " ";
+						message = item.message;
+						buttonEdit = "<button name='" + item.msgID + "' class='edit' value = '" + item.msgID + "'>Edit</button>";
 
+						$("#messages").append("<div>" + info + buttonEdit + "<h4>" + message + "</h4></div><hr/>");
+					})
+					$("#messages").append("<p><button class= 'buttonSmall' id='del' value='Delete Messages'>Delete</button></p>");
+					$(".edit").click(function(event){
+											var msgID = $(".edit").val();
+											var url = "updateMessage.php?msgID=" + msgID ;   
+											$(location).attr('href',url)
+											/*$.ajax({
+														type: "GET",
+														url: "updateMessage.php",
+														dataType : "json",
+														data : 
+														{
+																msgID :msgID
+														},
+														success: $(location).attr('href',url)*/										
+													//});
+													})	
+					$("#del").click(function(event){
+											var msgIDarray = [];
+											console.log("click");
+											$("input:checkbox[name=type]:checked").each(function() {
+	       											msgIDarray.push($(this).val());
+	  										});
+
+											$.ajax({
+														type: "POST",
+														url: "DeleteMessage.php",
+														dataType : "json",
+														data : 
+														{
+																msgIDarray :msgIDarray
+														},
+														success : $(location).attr('href','index.php')										
+													});
+													})
+			
+			}			
+		
 			$(function() {
 							$( "#DateFrom" ).datepicker({ dateFormat: 'yy-mm-dd', autoSize: true });
 						});	

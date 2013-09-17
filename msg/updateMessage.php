@@ -6,36 +6,31 @@
 		header("Location: login.php");
 		exit;
 	}
-	
+		
+	$msgID = $_GET["msgID"]; 
 	$userId = $_SESSION["userId"];	
-	$usernameSql = "SELECT username FROM users WHERE id = $userId LIMIT 1";
-	$usernameRes = mysql_query($usernameSql);
-	$usernameRow = mysql_fetch_assoc($usernameRes);
+	$sql = "SELECT message FROM messages WHERE msgID = $msgID LIMIT 1";
+	$res = mysql_query($sql);
+	$row = mysql_fetch_assoc($res);
+	
 	
 	if(isset($_POST["message"])) {
 		$message = mysql_real_escape_string($_POST["message"]);
 		//$message = iconv("UTF-8",$message);
-		//$message = htmlspecialchars($message);
+		$message = htmlspecialchars($message);
 		$message = htmlentities($message); 
 
-		$messageTime = date( 'Y-m-d H:i:s');
 		if ($message != "")
 		{
-				$sql = "INSERT INTO messages(msgID, message, message_time, userID) 
-				VALUES( '', '$message', '$messageTime', '$userId')";
-				$res = mysql_query($sql);
-				if(!$res)
+				$sqlUpdate = "UPDATE messages SET message = '$message'  WHERE msgID = $msgID ";
+				$resUpdate = mysql_query($sqlUpdate);
+				if(!$resUpdate)
 				{
-					echo "Message not added!";
+					echo "Message not updated!";
 				}
-				if($res) 
+				if($resUpdate) 
 				{
-					$sqlUpdate_bIsLastMessageShown = "UPDATE online_users SET b_IsLastMessageShown='0' WHERE userID != '$userId' ";
-					$result = mysql_query($sqlUpdate_bIsLastMessageShown) or die(mysql_error());	
-	
-				    //echo "New message from <b>".$usernameRow["username"]."</b>";
 					header("Location: index.php");
-					//echo $userId;
 				}
 		}
 	
@@ -45,7 +40,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />	
-	<title>Post a messsage!</title>
+	<title>Update messsage!</title>
 	<link rel="stylesheet" type="text/css" href="main.css">
 	<style type="text/css">
 		textarea {
@@ -65,11 +60,10 @@
 	
 	
 	<div id="container">
-		<h1>Hello, <?php echo $usernameRow["username"] ?> !</h1>
 		<form method="post" action="">
-			<textarea placeholder="Enter your message" name="message"></textarea>
-			<br />
-			<input type="submit" value="Send your message!" class="buttonBig"/>
+			<textarea  name="message"><?php echo  $row['message']; ?> 
+			</textarea><br/>
+			<input type="submit" value="Update Message!" class="buttonBig"/>
 		</form>
 		
 			

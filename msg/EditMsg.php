@@ -13,26 +13,17 @@ function DelMsgForm($DateFrom, $DateTo, $messageStr)
 					WHERE messages.message_time >= '$DateFrom' AND messages.message_time <= '$DateTo' AND messages.message LIKE '%$messageStr%' 
 					ORDER BY messages.msgID DESC";
 			$res = mysql_query($sql);
-			$stringResult ="";
-			echo "<form method='post' action=''>";
+			$ResultArr = array();
 			while ($row = mysql_fetch_assoc($res)) 
 			{		
-					
-					 
 					if(filter_var($row["message"], FILTER_VALIDATE_URL))
 							{	
 								$row["message"] = makeClickableLinks($row["message"]);
 							}
-					$info = "<input type='checkbox' value='" . $row["msgID"] ."' name='" . $row["msgID"] . "'>
-							 From: <b>" . $row["username"] . ",</b>  Posted at: "  . $row["message_time"] . 
-							 "<form method='get' action='updateMessage.php'><input type='submit' value='edit' name='" .$row["msgID"]. "'></form>";		
-									
-					$stringResult = $stringResult . "<div>" . $info . "<h4>" . $row["message"] . "</h4></div><hr/>";
+					$ResultArr[] = $row;
 			}
-			$stringResult = html_entity_decode($stringResult); 
-			echo $stringResult;	
-			echo "<input type='submit' value='Delete Messages' name='del' class='buttonBig'>";
-			echo "</form>";	
+			//$ResultArr = html_entity_decode($ResultArr); 
+			echo json_encode($ResultArr);
 		}
 		
 
@@ -58,6 +49,4 @@ if (isset($_POST["DateTo"]))
   		
 	}		
   
-
 DelMsgForm ($DateFrom, $DateTo, $messageStr);
-
