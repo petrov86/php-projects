@@ -18,11 +18,11 @@ function DelMsgForm($DateFrom, $DateTo, $messageStr)
 			{		
 					if(filter_var($row["message"], FILTER_VALIDATE_URL))
 							{	
-								$row["message"] = makeClickableLinks($row["message"]);
+								$row["message"] = makeClickableLinks($row["message"]);								
 							}
+					$row["message"] = html_entity_decode($row["message"]);
 					$ResultArr[] = $row;
 			}
-			//$ResultArr = html_entity_decode($ResultArr); 
 			echo json_encode($ResultArr);
 		}
 		
