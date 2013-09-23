@@ -4,6 +4,7 @@
 			var messageStr;
 			var timeOut = 300000;
 			var timeoutHandle = window.setTimeout(inactive, timeOut);
+			var messageID = "";
 			
 			$("document").ready(function() {
 					$("#last_30_DaysMsg").trigger('click');
@@ -158,26 +159,19 @@
 						$("#messages").append("<div>" + info + buttonEdit + "<h4>" + message + "</h4></div><hr/>");
 					})
 					$("#messages").append("<p><button class= 'buttonSmall' id='del' value='Delete Messages'>Delete</button></p>");
-					$(".edit").click(function(event){
-											var msgID = $(".edit").val();
-											var url = "updateMessage.php?msgID=" + msgID ;   
+					$("button[class=edit]").click(function(event){
+											messageID = $(this).attr("name")
+											var url = "updateMessage.php?msgID=" + messageID ;   
+											messageID = "";
 											$(location).attr('href',url)
-											/*$.ajax({
-														type: "GET",
-														url: "updateMessage.php",
-														dataType : "json",
-														data : 
-														{
-																msgID :msgID
-														},
-														success: $(location).attr('href',url)*/										
-													//});
-													})	
+											})	
+											
 					$("#del").click(function(event){
 											var msgIDarray = [];
 											console.log("click");
 											$("input:checkbox[name=type]:checked").each(function() {
-	       											msgIDarray.push($(this).val());
+	       											msgIDarray.push($(this).attr("value"));
+													console.log($(this).attr("value"));
 	  										});
 
 											$.ajax({
@@ -187,9 +181,10 @@
 														data : 
 														{
 																msgIDarray :msgIDarray
-														},
-														success : $(location).attr('href','index.php')										
-													});
+														}
+														//success : $(location).attr('href','index.php')										
+													})				
+														$("#last_30_DaysMsg").trigger('click');			
 													})
 			
 			}			
