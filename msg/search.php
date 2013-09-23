@@ -10,7 +10,7 @@ function ShowSearchedMsg ($DateFrom, $DateTo, $messageStr)
 			
 			$sql = "SELECT messages.msgID, messages.message, messages.message_time, users.username FROM messages 
 					JOIN users ON messages.userID= users.id 
-					WHERE messages.message_time >= '$DateFrom' AND messages.message_time <= '$DateTo' AND messages.message LIKE '%$messageStr%' 
+					WHERE messages.message_time >= '$DateFrom' AND messages.message_time <= '$DateTo' AND (messages.message LIKE '%$messageStr%' OR users.username LIKE '%$messageStr%')
 					ORDER BY messages.msgID DESC";
 			$res = mysql_query($sql);
 			$stringResult ="";
